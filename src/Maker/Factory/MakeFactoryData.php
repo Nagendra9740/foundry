@@ -177,7 +177,7 @@ final class MakeFactoryData
             throw new \LogicException('Cannot add enum for php version inferior than 8.1');
         }
 
-        if (!enum_exists($enumClass)) {
+        if (!\enum_exists($enumClass)) {
             throw new \InvalidArgumentException("Enum of class \"{$enumClass}\" does not exist.");
         }
 

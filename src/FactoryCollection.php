@@ -37,7 +37,7 @@ final class FactoryCollection implements \IteratorAggregate
      */
     public static function accepts(mixed $potentialFactories): bool
     {
-        if (!is_array($potentialFactories) || count($potentialFactories) === 0 || !array_is_list($potentialFactories)) {
+        if (!\is_array($potentialFactories) || 0 === \count($potentialFactories) || !\array_is_list($potentialFactories)) {
             return false;
         }
 
@@ -47,7 +47,7 @@ final class FactoryCollection implements \IteratorAggregate
 
         foreach ($potentialFactories as $potentialFactory) {
             if (!$potentialFactory instanceof ObjectFactory
-                || $potentialFactory::class() !== $potentialFactories[0]::class()) {
+                || $potentialFactories[0]::class() !== $potentialFactory::class()) {
                 return false;
             }
         }
@@ -96,7 +96,7 @@ final class FactoryCollection implements \IteratorAggregate
     }
 
     /**
-     * @param  TFactory           $factory
+     * @param TFactory $factory
      * @phpstan-param  iterable<Attributes> $items
      * @return self<T, TFactory>
      */

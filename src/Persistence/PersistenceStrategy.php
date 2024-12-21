@@ -70,7 +70,7 @@ abstract class PersistenceStrategy
 
     /**
      * @template T of object
-     * @param class-string<T> $class
+     * @param  class-string<T>  $class
      * @return ClassMetadata<T>
      *
      * @throws MappingException If $class is not managed by Doctrine

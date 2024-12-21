@@ -11,7 +11,6 @@
 
 namespace Zenstruck\Foundry\Tests\Fixture\Stories;
 
-use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Zenstruck\Foundry\Story;
 use Zenstruck\Foundry\Tests\Fixture\Factories\Entity\GenericEntityFactory;
@@ -19,10 +18,10 @@ use Zenstruck\Foundry\Tests\Fixture\Factories\Entity\GenericEntityFactory;
 /**
  * @author Nicolas PHILIPPE <nikophil@gmail.com>
  */
-    final class ServiceStory extends Story
+final class ServiceStory extends Story
 {
     public function __construct(
-        private readonly RouterInterface $router
+        private readonly RouterInterface $router,
     ) {
     }
 

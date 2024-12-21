@@ -290,12 +290,12 @@ abstract class GenericProxyFactoryTestCase extends GenericFactoryTestCase
         $value = 'value set with before instantiate';
         $object = $this->factory()
             ->instantiateWith(Instantiator::withConstructor()->allowExtra('extra'))
-            ->beforeInstantiate(function (array $attributes) use ($value) {
+            ->beforeInstantiate(function(array $attributes) use ($value) {
                 $attributes['extra'] = $value;
 
                 return $attributes;
             })
-            ->afterPersist(function (GenericModel $object, array $attributes) {
+            ->afterPersist(function(GenericModel $object, array $attributes) {
                 $object->setProp1($attributes['extra']);
             })
             ->create();

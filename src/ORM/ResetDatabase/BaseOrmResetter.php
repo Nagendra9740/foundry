@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the zenstruck/foundry package.
+ *
+ * (c) Kevin Bond <kevinbond@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Zenstruck\Foundry\ORM\ResetDatabase;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
@@ -11,7 +20,6 @@ use Doctrine\DBAL\Platforms\SQLitePlatform;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
-
 use Zenstruck\Foundry\ORM\DoctrineOrmVersionGuesser;
 
 use function Zenstruck\Foundry\runCommand;
@@ -61,7 +69,7 @@ abstract class BaseOrmResetter implements OrmResetter
 
                 $dbPath = $connection->getParams()['path'] ?? null;
                 if (DoctrineOrmVersionGuesser::isOrmV3() && $dbPath && (new Filesystem())->exists($dbPath)) {
-                    file_put_contents($dbPath, '');
+                    \file_put_contents($dbPath, '');
                 }
 
                 continue;

@@ -25,16 +25,15 @@ use Faker;
  */
 abstract class Factory
 {
-    /** @phpstan-var Attributes[] */
-    private array $attributes;
-
     /**
-     * Memoization of normalized parameters
+     * Memoization of normalized parameters.
      *
      * @internal
      * @var Parameters|null
      */
-    protected array|null $normalizedParameters = null;
+    protected ?array $normalizedParameters = null;
+    /** @phpstan-var Attributes[] */
+    private array $attributes;
 
     // keep an empty constructor for BC
     public function __construct()
@@ -42,7 +41,6 @@ abstract class Factory
     }
 
     /**
-     * @return static
      * @phpstan-return static
      * @phpstan-param Attributes $attributes
      */
@@ -161,8 +159,6 @@ abstract class Factory
 
     /**
      * Override to adjust default attributes & config.
-     *
-     * @return static
      */
     protected function initialize(): static
     {
@@ -212,9 +208,9 @@ abstract class Factory
      */
     protected function normalizeParameters(array $parameters): array
     {
-        return $this->normalizedParameters = array_combine(
-            array_keys($parameters),
-            \array_map($this->normalizeParameter(...), array_keys($parameters), $parameters)
+        return $this->normalizedParameters = \array_combine(
+            \array_keys($parameters),
+            \array_map($this->normalizeParameter(...), \array_keys($parameters), $parameters)
         );
     }
 
@@ -240,9 +236,9 @@ abstract class Factory
         }
 
         if (\is_array($value)) {
-            return array_combine(
-                array_keys($value),
-                \array_map($this->normalizeParameter(...), array_fill(0, count($value), $field), $value)
+            return \array_combine(
+                \array_keys($value),
+                \array_map($this->normalizeParameter(...), \array_fill(0, \count($value), $field), $value)
             );
         }
 

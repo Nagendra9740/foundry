@@ -371,21 +371,21 @@ final class ObjectFactoryTest extends TestCase
         ];
 
         yield 'sequence as callable which returns array' => [
-            static fn() => array_map(
+            static fn() => \array_map(
                 static fn(int $i) => ['prop1' => "foo{$i}", 'prop2' => "bar{$i}"],
-                range(1, 2)
-            )
+                \range(1, 2)
+            ),
         ];
 
         yield 'sequence as iterable which returns generator' => [
-            static function () {
-                foreach (range(1, 2) as $i) {
+            static function() {
+                foreach (\range(1, 2) as $i) {
                     yield [
                         'prop1' => "foo{$i}",
                         'prop2' => "bar{$i}",
                     ];
                 }
-            }
+            },
         ];
     }
 

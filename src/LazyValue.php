@@ -71,7 +71,7 @@ final class LazyValue
     }
 
     /**
-     * @param array<array-key, mixed> $value
+     * @param  array<array-key, mixed> $value
      * @return array<array-key, mixed>
      */
     private static function normalizeArray(array $value): array

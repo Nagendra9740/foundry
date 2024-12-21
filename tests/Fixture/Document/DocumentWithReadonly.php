@@ -27,7 +27,6 @@ class DocumentWithReadonly extends Base
 
         #[MongoDB\Field()]
         public readonly \DateTimeImmutable $date,
-    )
-    {
+    ) {
     }
 }
