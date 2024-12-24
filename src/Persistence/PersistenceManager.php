@@ -184,7 +184,7 @@ final class PersistenceManager
         $om = $this->strategyFor($object::class)->objectManagerFor($object::class);
         $id = $om->getClassMetadata($object::class)->getIdentifierValues($object);
 
-        return $id && $om->find($object::class, $id) !== null;
+        return $id && null !== $om->find($object::class, $id);
     }
 
     /**
