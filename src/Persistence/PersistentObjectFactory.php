@@ -254,14 +254,6 @@ abstract class PersistentObjectFactory extends ObjectFactory
         return $clone;
     }
 
-    private function withoutPersistingButScheduleForInsert(): static
-    {
-        $clone = clone $this;
-        $clone->persist = PersistMode::NO_PERSIST_BUT_SCHEDULE_FOR_INSERT;
-
-        return $clone;
-    }
-
     /**
      * @phpstan-param callable(T, Parameters, static):void $callback
      */
@@ -280,7 +272,7 @@ abstract class PersistentObjectFactory extends ObjectFactory
         }
 
         if ($value instanceof self && isset($this->persist)) {
-            $value = match($this->persist) {
+            $value = match ($this->persist) {
                 PersistMode::PERSIST => $value->andPersist(),
                 PersistMode::WITHOUT_PERSISTING => $value->withoutPersisting(),
                 PersistMode::NO_PERSIST_BUT_SCHEDULE_FOR_INSERT => $value->withoutPersistingButScheduleForInsert(),
@@ -394,13 +386,21 @@ abstract class PersistentObjectFactory extends ObjectFactory
     {
         return $this->afterInstantiate(
             static function(object $object, array $parameters, PersistentObjectFactory $factory): void {
-                if (!$factory->isPersisting() && (!isset($factory->persist) || $factory->persist !== PersistMode::NO_PERSIST_BUT_SCHEDULE_FOR_INSERT)) {
+                if (!$factory->isPersisting() && (!isset($factory->persist) || PersistMode::NO_PERSIST_BUT_SCHEDULE_FOR_INSERT !== $factory->persist)) {
                     return;
                 }
 
                 Configuration::instance()->persistence()->scheduleForInsert($object);
             }
         );
+    }
+
+    private function withoutPersistingButScheduleForInsert(): static
+    {
+        $clone = clone $this;
+        $clone->persist = PersistMode::NO_PERSIST_BUT_SCHEDULE_FOR_INSERT;
+
+        return $clone;
     }
 
     private function throwIfCannotCreateObject(): void

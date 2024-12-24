@@ -24,7 +24,7 @@ use Zenstruck\Foundry\Tests\Fixture\Model\Base;
 class InverseSide extends Base
 {
     #[ORM\OneToOne(mappedBy: 'inverseSide')]
-    private OwningSide|null $owningSide = null;
+    private ?OwningSide $owningSide = null;
 
     public function getOwningSide(): ?OwningSide
     {
